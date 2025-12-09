@@ -17,7 +17,7 @@ export const DEFAULT_COMMITTEE: LLMConfig[] = [
   {
     id: 'gemini-flash',
     name: 'Gemini 1.5 Flash',
-    model: 'google/gemini-flash-1.5',
+    model: 'google/gemini-flash-1.5-8b',
   },
   {
     id: 'llama-70b',

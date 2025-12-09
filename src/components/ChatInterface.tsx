@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { CouncilResponse } from '@/lib/types';
+import { CommitteeResponse } from '@/lib/types';
 import ResponseTabs from './ResponseTabs';
 import StageIndicator from './StageIndicator';
 import FinalResponse from './FinalResponse';
@@ -9,7 +9,7 @@ import FinalResponse from './FinalResponse';
 export default function ChatInterface() {
   const [query, setQuery] = useState('');
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<CouncilResponse | null>(null);
+  const [result, setResult] = useState<CommitteeResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [currentStage, setCurrentStage] = useState<1 | 2 | 3 | null>(null);
 
@@ -26,7 +26,7 @@ export default function ChatInterface() {
     setCurrentStage(1);
 
     try {
-      const response = await fetch('/api/council', {
+      const response = await fetch('/api/committee', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -36,7 +36,7 @@ export default function ChatInterface() {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to get council response');
+        throw new Error(errorData.message || 'Failed to get committee response');
       }
 
       const data = await response.json();
@@ -61,7 +61,7 @@ export default function ChatInterface() {
     <div className="flex flex-col h-screen bg-gray-50">
       {/* Header */}
       <div className="bg-white border-b border-gray-200 px-6 py-4">
-        <h1 className="text-2xl font-bold text-gray-900">LLM Council</h1>
+        <h1 className="text-2xl font-bold text-gray-900">LLM Committee</h1>
         <p className="text-sm text-gray-600 mt-1">
           Multiple AI models collaborate to provide the best answer
         </p>
@@ -142,7 +142,7 @@ export default function ChatInterface() {
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Ask your question to the LLM Council..."
+                placeholder="Ask your question to the LLM Committee..."
                 className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 disabled={loading}
               />

@@ -11,7 +11,7 @@ export class OpenRouterClient {
   constructor(apiKey?: string, siteUrl?: string, siteName?: string) {
     this.apiKey = apiKey || process.env.OPENROUTER_API_KEY || '';
     this.siteUrl = siteUrl || process.env.OPENROUTER_SITE_URL || 'http://localhost:3000';
-    this.siteName = siteName || process.env.OPENROUTER_SITE_NAME || 'LLM Council';
+    this.siteName = siteName || process.env.OPENROUTER_SITE_NAME || 'LLM Committee';
 
     if (!this.apiKey) {
       throw new Error('OpenRouter API key is required');

@@ -1,4 +1,4 @@
-// Core types for the LLM Council system
+// Core types for the LLM Committee system
 
 export interface LLMConfig {
   id: string;
@@ -31,14 +31,14 @@ export interface ReviewResponse {
   rankings: RankingEntry[];
 }
 
-export interface CouncilStage {
+export interface CommitteeStage {
   stage: 1 | 2 | 3;
   status: 'pending' | 'in-progress' | 'completed' | 'error';
   data?: any;
   error?: string;
 }
 
-export interface CouncilResponse {
+export interface CommitteeResponse {
   query: string;
   stage1: {
     status: 'pending' | 'in-progress' | 'completed' | 'error';

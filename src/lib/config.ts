@@ -1,8 +1,8 @@
 import { LLMConfig } from './types';
 
-// Default LLM Council configuration
+// Default LLM Committee configuration
 // You can customize this to include your preferred models
-export const DEFAULT_COUNCIL: LLMConfig[] = [
+export const DEFAULT_COMMITTEE: LLMConfig[] = [
   {
     id: 'gpt4-turbo',
     name: 'GPT-4 Turbo',
@@ -26,26 +26,26 @@ export const DEFAULT_COUNCIL: LLMConfig[] = [
   },
 ];
 
-// Get the chairman from the council
-export function getChairman(council: LLMConfig[]): LLMConfig {
-  const chairman = council.find(c => c.isChairman);
+// Get the chairman from the committee
+export function getChairman(committee: LLMConfig[]): LLMConfig {
+  const chairman = committee.find(c => c.isChairman);
   if (!chairman) {
-    throw new Error('No chairman designated in council configuration');
+    throw new Error('No chairman designated in committee configuration');
   }
   return chairman;
 }
 
-// Validate that the council has at least 2 members and a chairman
-export function validateCouncil(council: LLMConfig[]): void {
-  if (council.length < 2) {
-    throw new Error('Council must have at least 2 members');
+// Validate that the committee has at least 2 members and a chairman
+export function validateCommittee(committee: LLMConfig[]): void {
+  if (committee.length < 2) {
+    throw new Error('Committee must have at least 2 members');
   }
 
-  const chairmen = council.filter(c => c.isChairman);
+  const chairmen = committee.filter(c => c.isChairman);
   if (chairmen.length === 0) {
-    throw new Error('Council must have a designated chairman');
+    throw new Error('Committee must have a designated chairman');
   }
   if (chairmen.length > 1) {
-    throw new Error('Council can only have one chairman');
+    throw new Error('Committee can only have one chairman');
   }
 }

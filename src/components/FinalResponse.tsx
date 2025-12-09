@@ -22,7 +22,7 @@ export default function FinalResponse({ response, chairmanName }: FinalResponseP
             d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
           />
         </svg>
-        <h2 className="text-lg font-bold text-gray-900">Council Final Answer</h2>
+        <h2 className="text-lg font-bold text-gray-900">Committee Final Answer</h2>
         <span className="text-sm text-gray-600">by {chairmanName}</span>
       </div>
 

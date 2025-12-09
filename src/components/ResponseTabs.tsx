@@ -64,7 +64,7 @@ export default function ResponseTabs({ responses, reviews }: ResponseTabsProps) 
     <div className="bg-white rounded-lg shadow">
       <div className="border-b border-gray-200">
         <div className="px-6 py-3">
-          <h3 className="text-sm font-semibold text-gray-500">INDIVIDUAL COUNCIL RESPONSES</h3>
+          <h3 className="text-sm font-semibold text-gray-500">INDIVIDUAL COMMITTEE RESPONSES</h3>
         </div>
         <div className="flex overflow-x-auto">
           {sortedResponses.map((response, index) => {

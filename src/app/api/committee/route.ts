@@ -1,15 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { runCouncil } from '@/lib/council';
-import { DEFAULT_COUNCIL, validateCouncil } from '@/lib/config';
+import { runCommittee } from '@/lib/council';
+import { DEFAULT_COMMITTEE, validateCommittee } from '@/lib/config';
 import { LLMConfig } from '@/lib/types';
 
 export const runtime = 'nodejs';
-export const maxDuration = 300; // 5 minutes max for long council sessions
+export const maxDuration = 300; // 5 minutes max for long committee sessions
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { query, council } = body;
+    const { query, committee } = body;
 
     if (!query || typeof query !== 'string') {
       return NextResponse.json(
@@ -18,12 +18,12 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Use provided council or default
-    const councilConfig: LLMConfig[] = council || DEFAULT_COUNCIL;
+    // Use provided committee or default
+    const committeeConfig: LLMConfig[] = committee || DEFAULT_COMMITTEE;
 
-    // Validate council configuration
+    // Validate committee configuration
     try {
-      validateCouncil(councilConfig);
+      validateCommittee(committeeConfig);
     } catch (error) {
       return NextResponse.json(
         { error: (error as Error).message },
@@ -31,8 +31,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Run the council process
-    const result = await runCouncil(query, councilConfig);
+    // Run the committee process
+    const result = await runCommittee(query, committeeConfig);
 
     return NextResponse.json({
       success: true,
@@ -54,7 +54,7 @@ export async function POST(request: NextRequest) {
       timestamp: Date.now(),
     });
   } catch (error) {
-    console.error('Council API error:', error);
+    console.error('Committee API error:', error);
     return NextResponse.json(
       {
         error: 'Internal server error',
@@ -65,9 +65,9 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// GET endpoint to retrieve council configuration
+// GET endpoint to retrieve committee configuration
 export async function GET() {
   return NextResponse.json({
-    defaultCouncil: DEFAULT_COUNCIL,
+    defaultCommittee: DEFAULT_COMMITTEE,
   });
 }

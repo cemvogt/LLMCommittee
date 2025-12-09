@@ -9,12 +9,12 @@ export default function StageIndicator({ currentStage }: StageIndicatorProps) {
     {
       number: 1,
       title: 'First Opinions',
-      description: 'Collecting responses from all council members...',
+      description: 'Collecting responses from all committee members...',
     },
     {
       number: 2,
       title: 'Peer Review',
-      description: 'Council members reviewing and ranking responses...',
+      description: 'Committee members reviewing and ranking responses...',
     },
     {
       number: 3,

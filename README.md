@@ -1,14 +1,14 @@
-# LLM Council
+# LLM Committee
 
-A collaborative AI system where multiple Large Language Models work together to provide the best possible answers. Instead of relying on a single AI model, LLM Council gathers opinions from multiple state-of-the-art models, has them review and rank each other's work, and synthesizes a final comprehensive response.
+A collaborative AI system where multiple Large Language Models work together to provide the best possible answers. Instead of relying on a single AI model, LLM Committee gathers opinions from multiple state-of-the-art models, has them review and rank each other's work, and synthesizes a final comprehensive response.
 
 ## How It Works
 
 ### Stage 1: First Opinions
-When you submit a query, it's sent to all council members simultaneously. Each LLM provides its independent response without seeing others' answers. This ensures diverse perspectives and approaches to your question.
+When you submit a query, it's sent to all committee members simultaneously. Each LLM provides its independent response without seeing others' answers. This ensures diverse perspectives and approaches to your question.
 
 ### Stage 2: Peer Review
-Each council member reviews all responses (including their own, anonymized to prevent bias). They rank the responses based on:
+Each committee member reviews all responses (including their own, anonymized to prevent bias). They rank the responses based on:
 - Accuracy of information
 - Depth of insight
 - Clarity and organization
@@ -18,7 +18,7 @@ The anonymization ensures fair and objective evaluation.
 
 ### Stage 3: Final Response
 The designated Chairman (default: Claude 3.5 Sonnet) synthesizes all responses and peer reviews into a single, comprehensive answer. The Chairman considers:
-- All council members' responses
+- All committee members' responses
 - Peer review rankings and reasoning
 - Areas of agreement and disagreement
 - The most accurate and insightful points
@@ -32,14 +32,14 @@ The designated Chairman (default: Claude 3.5 Sonnet) synthesizes all responses a
 - **ChatGPT-like Interface**: Familiar and easy-to-use chat interface
 - **Powered by OpenRouter**: Access to multiple LLM providers through a single API
 
-## Default Council Members
+## Default Committee Members
 
 - **GPT-4 Turbo** (OpenAI)
 - **Claude 3.5 Sonnet** (Anthropic) - *Chairman*
 - **Gemini Pro** (Google)
 - **Mixtral 8x7B** (Mistral AI)
 
-You can customize the council members by modifying `src/lib/config.ts`.
+You can customize the committee members by modifying `src/lib/config.ts`.
 
 ## Prerequisites
 
@@ -52,7 +52,7 @@ You can customize the council members by modifying `src/lib/config.ts`.
 1. **Clone the repository**
    ```bash
    git clone <repository-url>
-   cd LLMCouncil
+   cd LLMCommittee
    ```
 
 2. **Install dependencies**
@@ -69,7 +69,7 @@ You can customize the council members by modifying `src/lib/config.ts`.
    ```env
    OPENROUTER_API_KEY=your_api_key_here
    OPENROUTER_SITE_URL=http://localhost:3000
-   OPENROUTER_SITE_NAME=LLM Council
+   OPENROUTER_SITE_NAME=LLM Committee
    ```
 
 4. **Run the development server**
@@ -84,7 +84,7 @@ You can customize the council members by modifying `src/lib/config.ts`.
 
 1. Type your question in the input field at the bottom
 2. Click "Submit" or press Enter
-3. Wait as the council processes your query through three stages:
+3. Wait as the committee processes your query through three stages:
    - Stage 1: Collecting first opinions
    - Stage 2: Peer review and ranking
    - Stage 3: Chairman's final response
@@ -94,12 +94,12 @@ You can customize the council members by modifying `src/lib/config.ts`.
 
 ## Customization
 
-### Changing Council Members
+### Changing Committee Members
 
-Edit `src/lib/config.ts` to customize your council:
+Edit `src/lib/config.ts` to customize your committee:
 
 ```typescript
-export const DEFAULT_COUNCIL: LLMConfig[] = [
+export const DEFAULT_COMMITTEE: LLMConfig[] = [
   {
     id: 'custom-model',
     name: 'My Custom Model',
@@ -132,11 +132,11 @@ const request: OpenRouterRequest = {
 ## Project Structure
 
 ```
-LLMCouncil/
+LLMCommittee/
 ├── src/
 │   ├── app/
 │   │   ├── api/
-│   │   │   └── council/
+│   │   │   └── committee/
 │   │   │       └── route.ts        # Main API endpoint
 │   │   ├── layout.tsx              # Root layout
 │   │   ├── page.tsx                # Home page
@@ -148,9 +148,9 @@ LLMCouncil/
 │   │   └── FinalResponse.tsx       # Final answer display
 │   └── lib/
 │       ├── types.ts                # TypeScript types
-│       ├── config.ts               # Council configuration
+│       ├── config.ts               # Committee configuration
 │       ├── openrouter.ts           # OpenRouter API client
-│       └── council.ts              # Core council logic
+│       └── committee.ts              # Core committee logic
 ├── package.json
 ├── tsconfig.json
 ├── tailwind.config.js
@@ -159,15 +159,15 @@ LLMCouncil/
 
 ## API Reference
 
-### POST /api/council
+### POST /api/committee
 
-Submit a query to the LLM Council.
+Submit a query to the LLM Committee.
 
 **Request Body:**
 ```json
 {
   "query": "Your question here",
-  "council": [...]  // Optional: custom council configuration
+  "committee": [...]  // Optional: custom committee configuration
 }
 ```
 
@@ -194,14 +194,14 @@ Submit a query to the LLM Council.
 }
 ```
 
-### GET /api/council
+### GET /api/committee
 
-Get the default council configuration.
+Get the default committee configuration.
 
 **Response:**
 ```json
 {
-  "defaultCouncil": [...]
+  "defaultCommittee": [...]
 }
 ```
 
@@ -223,13 +223,13 @@ npm run lint
 ## Cost Considerations
 
 This application makes multiple API calls to OpenRouter for each query:
-- Stage 1: N calls (where N = number of council members)
+- Stage 1: N calls (where N = number of committee members)
 - Stage 2: N calls (one review from each member)
 - Stage 3: 1 call (chairman's final response)
 
 **Total: 2N + 1 API calls per query**
 
-With the default 4-member council, each query makes 9 API calls. Monitor your OpenRouter usage and set appropriate rate limits if needed.
+With the default 4-member committee, each query makes 9 API calls. Monitor your OpenRouter usage and set appropriate rate limits if needed.
 
 ## Troubleshooting
 
@@ -248,17 +248,17 @@ OPENROUTER_API_KEY=your_actual_key_here
 
 ### Slow responses
 
-- The council process involves multiple API calls and can take 30-60 seconds
-- Consider reducing the number of council members
+- The committee process involves multiple API calls and can take 30-60 seconds
+- Consider reducing the number of committee members
 - Use faster models (smaller parameter counts)
 
 ## Future Enhancements
 
 - [ ] Stream responses in real-time as they're generated
-- [ ] Save and export council sessions
-- [ ] Custom system prompts for council members
+- [ ] Save and export committee sessions
+- [ ] Custom system prompts for committee members
 - [ ] Weighted voting based on model performance
-- [ ] Support for different council configurations per topic
+- [ ] Support for different committee configurations per topic
 - [ ] Conversation history and follow-up questions
 - [ ] Cost tracking and estimation
 - [ ] Model performance analytics

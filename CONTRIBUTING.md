@@ -1,6 +1,6 @@
-# Contributing to LLM Council
+# Contributing to LLM Committee
 
-Thank you for your interest in contributing to LLM Council! This document provides guidelines for contributing to the project.
+Thank you for your interest in contributing to LLM Committee! This document provides guidelines for contributing to the project.
 
 ## How to Contribute
 
@@ -54,8 +54,8 @@ Enhancement suggestions are welcome! Please create an issue with:
 
 1. Clone your fork:
    ```bash
-   git clone https://github.com/your-username/LLMCouncil.git
-   cd LLMCouncil
+   git clone https://github.com/your-username/LLMCommittee.git
+   cd LLMCommittee
    ```
 
 2. Install dependencies:
@@ -90,7 +90,7 @@ Enhancement suggestions are welcome! Please create an issue with:
   - `types.ts` - TypeScript type definitions
   - `config.ts` - Configuration
   - `openrouter.ts` - OpenRouter API client
-  - `council.ts` - Council orchestration logic
+  - `committee.ts` - Committee orchestration logic
 
 ## Adding New Features
 
@@ -100,10 +100,10 @@ Enhancement suggestions are welcome! Please create an issue with:
 2. Ensure the model ID is valid on OpenRouter
 3. Test with various queries
 
-### Modifying the Council Process
+### Modifying the Committee Process
 
-If you want to change how the council operates:
-1. Core logic is in `src/lib/council.ts`
+If you want to change how the committee operates:
+1. Core logic is in `src/lib/committee.ts`
 2. Each stage has its own function
 3. Update types in `src/lib/types.ts` if needed
 4. Update UI components to reflect changes

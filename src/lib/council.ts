@@ -6,12 +6,12 @@ import { getOpenRouterClient } from './openrouter';
  */
 export async function getFirstOpinions(
   query: string,
-  council: LLMConfig[]
+  committee: LLMConfig[]
 ): Promise<LLMResponse[]> {
   const client = getOpenRouterClient();
 
   // Query all models in parallel
-  const promises = council.map(async (member) => {
+  const promises = committee.map(async (member) => {
     try {
       const response = await client.getModelResponse(member.model, [
         {
@@ -72,7 +72,7 @@ function anonymizeResponses(responses: LLMResponse[]): {
 export async function getReviews(
   query: string,
   responses: LLMResponse[],
-  council: LLMConfig[]
+  committee: LLMConfig[]
 ): Promise<ReviewResponse[]> {
   const client = getOpenRouterClient();
   const { anonymizedMap, anonymizedResponses } = anonymizeResponses(responses);
@@ -114,8 +114,8 @@ Be objective and critical. Provide your ranking as valid JSON only.`;
 
   const reviewPrompt = createReviewPrompt(query, anonymizedResponses);
 
-  // Get reviews from all council members in parallel
-  const promises = council.map(async (member) => {
+  // Get reviews from all committee members in parallel
+  const promises = committee.map(async (member) => {
     try {
       const response = await client.getModelResponse(member.model, [
         {
@@ -206,24 +206,24 @@ export async function getChairmanResponse(
     })
     .join('\n\n');
 
-  const chairmanPrompt = `You are the Chairman of an AI Council. Your role is to synthesize multiple AI perspectives into a single, comprehensive, and accurate response.
+  const chairmanPrompt = `You are the Chairman of an AI Committee. Your role is to synthesize multiple AI perspectives into a single, comprehensive, and accurate response.
 
 Original Question: ${query}
 
-COUNCIL RESPONSES:
+COMMITTEE RESPONSES:
 ${responsesText}
 
 PEER REVIEWS:
 ${reviewsText}
 
 As Chairman, your task is to:
-1. Consider all council members' responses
+1. Consider all committee members' responses
 2. Take into account the peer review rankings and reasoning
 3. Identify the most accurate and insightful points
 4. Reconcile any disagreements or contradictions
 5. Synthesize everything into a single, comprehensive final answer
 
-Provide a well-structured, authoritative response that represents the best collective wisdom of the council. Do not mention that you are synthesizing responses - simply provide the final answer as if it were your own expertise.`;
+Provide a well-structured, authoritative response that represents the best collective wisdom of the committee. Do not mention that you are synthesizing responses - simply provide the final answer as if it were your own expertise.`;
 
   try {
     const finalResponse = await client.getModelResponse(chairman.model, [
@@ -241,11 +241,11 @@ Provide a well-structured, authoritative response that represents the best colle
 }
 
 /**
- * Run the complete council process
+ * Run the complete committee process
  */
-export async function runCouncil(
+export async function runCommittee(
   query: string,
-  council: LLMConfig[]
+  committee: LLMConfig[]
 ): Promise<{
   responses: LLMResponse[];
   reviews: ReviewResponse[];
@@ -254,15 +254,15 @@ export async function runCouncil(
 }> {
   // Stage 1: Get first opinions
   console.log('Stage 1: Getting first opinions...');
-  const responses = await getFirstOpinions(query, council);
+  const responses = await getFirstOpinions(query, committee);
 
   // Stage 2: Get reviews
   console.log('Stage 2: Getting peer reviews...');
-  const reviews = await getReviews(query, responses, council);
+  const reviews = await getReviews(query, responses, committee);
 
   // Stage 3: Get chairman's final response
   console.log('Stage 3: Getting chairman response...');
-  const chairman = council.find(c => c.isChairman)!;
+  const chairman = committee.find(c => c.isChairman)!;
   const finalResponse = await getChairmanResponse(query, responses, reviews, chairman);
 
   return {

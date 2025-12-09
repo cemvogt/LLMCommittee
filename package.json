@@ -1,7 +1,7 @@
 {
-  "name": "llm-council",
+  "name": "llm-committee",
   "version": "1.0.0",
-  "description": "An LLM Council system where multiple AI models collaborate, review each other's work, and produce a final consensus response",
+  "description": "An LLM Committee system where multiple AI models collaborate, review each other's work, and produce a final consensus response",
   "private": true,
   "scripts": {
     "dev": "next dev",

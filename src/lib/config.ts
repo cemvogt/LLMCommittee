@@ -25,9 +25,9 @@ export const DEFAULT_COMMITTEE: LLMConfig[] = [
     model: 'meta-llama/llama-3.1-70b-instruct',
   },
   {
-    id: 'grok-beta',
-    name: 'Grok Beta',
-    model: 'x-ai/grok-beta',
+    id: 'grok-fast',
+    name: 'Grok Code Fast 1',
+    model: 'x-ai/grok-code-fast-1',
   },
 ];
 

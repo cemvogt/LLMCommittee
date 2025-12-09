@@ -1,4 +1,5 @@
 # LLM Committee
+<img width="2816" height="1536" alt="LLMCommittee" src="https://github.com/user-attachments/assets/613d50d0-8918-4e53-9aa0-b4ffa80355d8" />
 
 A collaborative AI system where multiple Large Language Models work together to provide the best possible answers. Instead of relying on a single AI model, LLM Committee gathers opinions from multiple state-of-the-art models, has them review and rank each other's work, and synthesizes a final comprehensive response.
 

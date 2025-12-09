@@ -15,9 +15,9 @@ export const DEFAULT_COMMITTEE: LLMConfig[] = [
     isChairman: true, // Default chairman
   },
   {
-    id: 'gemini-flash',
-    name: 'Gemini 1.5 Flash',
-    model: 'google/gemini-flash-1.5-8b-exp',
+    id: 'gemini-pro',
+    name: 'Gemini 1.5 Pro',
+    model: 'google/gemini-pro-1.5',
   },
   {
     id: 'llama-70b',

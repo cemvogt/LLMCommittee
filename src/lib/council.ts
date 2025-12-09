@@ -27,11 +27,12 @@ export async function getFirstOpinions(
         timestamp: Date.now(),
       };
     } catch (error) {
-      console.error(`Error getting response from ${member.name}:`, error);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      console.error(`Error getting response from ${member.name}:`, errorMessage);
       return {
         modelId: member.id,
         modelName: member.name,
-        response: `Error: Failed to get response from ${member.name}`,
+        response: `Error: Failed to get response from ${member.name}. ${errorMessage}`,
         timestamp: Date.now(),
       };
     }
@@ -153,7 +154,8 @@ Be objective and critical. Provide your ranking as valid JSON only.`;
         rankings,
       };
     } catch (error) {
-      console.error(`Error getting review from ${member.name}:`, error);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      console.error(`Error getting review from ${member.name}:`, errorMessage);
       // Return empty rankings on error
       return {
         reviewerId: member.id,
@@ -236,7 +238,8 @@ Provide a well-structured, authoritative response that represents the best colle
     return finalResponse;
   } catch (error) {
     console.error('Error getting chairman response:', error);
-    throw new Error('Failed to generate chairman response');
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    throw new Error(`Failed to generate chairman response: ${errorMessage}`);
   }
 }
 

@@ -51,13 +51,13 @@ export class OpenRouterClient {
       model,
       messages,
       temperature: 0.7,
-      max_tokens: 2000,
+      max_tokens: 4000, // Increased for longer responses
     };
 
     const response = await this.chat(request);
 
     if (!response.choices || response.choices.length === 0) {
-      throw new Error('No response from model');
+      throw new Error(`No response from model ${model}`);
     }
 
     return response.choices[0].message.content;

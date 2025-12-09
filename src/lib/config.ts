@@ -11,7 +11,7 @@ export const DEFAULT_COMMITTEE: LLMConfig[] = [
   {
     id: 'claude-sonnet',
     name: 'Claude 3.5 Sonnet',
-    model: 'anthropic/claude-3.5-sonnet',
+    model: 'anthropic/claude-3.5-sonnet-20241022',
     isChairman: true, // Default chairman
   },
   {

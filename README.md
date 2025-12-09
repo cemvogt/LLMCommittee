@@ -38,6 +38,7 @@ The designated Chairman (default: Claude 3.5 Sonnet) synthesizes all responses a
 - **Claude 3.5 Sonnet** (Anthropic) - *Chairman*
 - **Gemini 2.5 Flash** (Google)
 - **Llama 3.1 70B** (Meta)
+- **Grok Code Fast 1** (xAI)
 
 You can customize the committee members by modifying `src/lib/config.ts`.
 

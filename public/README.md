@@ -11,3 +11,5 @@ Please save your committee hero image as:
 - **Recommended size**: At least 1200px wide for best display quality
 
 The image will be displayed on the welcome screen above "Welcome to LLM Committee".
+
+<img width="2816" height="1536" alt="committee-hero" src="https://github.com/user-attachments/assets/e2a023dc-9885-42c2-a8cc-2e31db4bc231" />

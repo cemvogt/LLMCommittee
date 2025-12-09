@@ -15,9 +15,9 @@ export const DEFAULT_COMMITTEE: LLMConfig[] = [
     isChairman: true, // Default chairman
   },
   {
-    id: 'mistral-large',
-    name: 'Mistral Large',
-    model: 'mistralai/mistral-large-latest',
+    id: 'gemini-flash',
+    name: 'Gemini 2.5 Flash',
+    model: 'google/gemini-2.5-flash',
   },
   {
     id: 'llama-70b',

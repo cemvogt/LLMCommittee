@@ -30,6 +30,7 @@ export class OpenRouterClient {
             'X-Title': this.siteName,
             'Content-Type': 'application/json',
           },
+          timeout: 120000, // 2 minutes timeout for slow models
         }
       );
 
@@ -37,6 +38,12 @@ export class OpenRouterClient {
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const axiosError = error as AxiosError;
+
+        // Check if it's a timeout error
+        if (axiosError.code === 'ECONNABORTED') {
+          throw new Error(`Request timeout after 120 seconds`);
+        }
+
         const errorMessage = axiosError.response?.data
           ? JSON.stringify(axiosError.response.data)
           : axiosError.message;
@@ -46,7 +53,7 @@ export class OpenRouterClient {
     }
   }
 
-  async getModelResponse(model: string, messages: Array<{ role: string; content: string }>): Promise<string> {
+  async getModelResponse(model: string, messages: Array<{ role: string; content: string }>, retries = 2): Promise<string> {
     const request: OpenRouterRequest = {
       model,
       messages,
@@ -54,13 +61,42 @@ export class OpenRouterClient {
       max_tokens: 4000, // Increased for longer responses
     };
 
-    const response = await this.chat(request);
+    let lastError: Error | null = null;
 
-    if (!response.choices || response.choices.length === 0) {
-      throw new Error(`No response from model ${model}`);
+    // Retry logic for transient failures
+    for (let attempt = 0; attempt <= retries; attempt++) {
+      try {
+        const response = await this.chat(request);
+
+        if (!response.choices || response.choices.length === 0) {
+          throw new Error(`No response from model ${model}`);
+        }
+
+        const content = response.choices[0].message.content;
+
+        // Validate content is not empty
+        if (!content || content.trim().length === 0) {
+          throw new Error(`Empty response from model ${model}`);
+        }
+
+        return content;
+      } catch (error) {
+        lastError = error as Error;
+
+        // If it's the last retry, throw the error
+        if (attempt === retries) {
+          break;
+        }
+
+        // Wait before retrying (exponential backoff: 1s, 2s, 4s)
+        const waitTime = Math.pow(2, attempt) * 1000;
+        console.log(`Retry ${attempt + 1}/${retries} for model ${model} after ${waitTime}ms...`);
+        await new Promise(resolve => setTimeout(resolve, waitTime));
+      }
     }
 
-    return response.choices[0].message.content;
+    // If we got here, all retries failed
+    throw lastError || new Error(`Failed to get response from model ${model}`);
   }
 }
 

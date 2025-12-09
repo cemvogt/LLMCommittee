@@ -15,14 +15,14 @@ export const DEFAULT_COMMITTEE: LLMConfig[] = [
     isChairman: true, // Default chairman
   },
   {
-    id: 'gemini-pro',
-    name: 'Gemini Pro',
-    model: 'google/gemini-pro',
+    id: 'gemini-flash',
+    name: 'Gemini 2.0 Flash',
+    model: 'google/gemini-2.0-flash-exp:free',
   },
   {
-    id: 'mixtral',
-    name: 'Mixtral 8x7B',
-    model: 'mistralai/mixtral-8x7b-instruct',
+    id: 'llama-70b',
+    name: 'Llama 3.1 70B',
+    model: 'meta-llama/llama-3.1-70b-instruct',
   },
 ];
 

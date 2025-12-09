@@ -36,7 +36,7 @@ The designated Chairman (default: Claude 3.5 Sonnet) synthesizes all responses a
 
 - **GPT-4 Turbo** (OpenAI)
 - **Claude 3.5 Sonnet** (Anthropic) - *Chairman*
-- **Gemini 2.0 Flash** (Google)
+- **Gemini 1.5 Flash** (Google)
 - **Llama 3.1 70B** (Meta)
 
 You can customize the committee members by modifying `src/lib/config.ts`.
